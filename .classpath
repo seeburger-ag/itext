@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<classpath>
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
+	<classpathentry kind="src" path="core"/>
+	<classpathentry kind="src" path="rtf"/>
+	<classpathentry kind="src" path="rups"/>
+	<classpathentry kind="src" path="toolbox"/>
+	<classpathentry kind="lib" path="C:/Users/g.pazhev/.m2/repository/org/bouncycastle/bcprov-jdk15on/1.68/bcprov-jdk15on-1.68.jar"/>
+	<classpathentry kind="output" path="target/classes"/>
+</classpath>
