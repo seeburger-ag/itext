@@ -98,10 +98,17 @@
             <resource>
                 <directory>core</directory>
                 <includes>
+                    <include>*.txt</include>
                     <include>com/lowagie/text/*.txt</include>
                     <include>com/lowagie/text/pdf/fonts/*.txt</include>
                     <include>com/lowagie/text/pdf/fonts/*.html</include>
                     <include>com/lowagie/text/pdf/fonts/*.afm</include>
+                </includes>
+            </resource>
+            <resource>
+                <directory>.</directory>
+                <includes>
+                    <include>README.md</include>
                 </includes>
             </resource>
         </resources>
