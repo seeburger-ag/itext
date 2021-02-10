@@ -1,6 +1,6 @@
 
 TIBCO Software Inc. has made modifications to certain files of the Original Code of this component as further described below.
-The Original Code is “iText, a free JAVA-PDF library�?, by Initial Developer, Bruno Lowagie, and Co-Developer, Paulo Soares.
+The Original Code is “iText, a free JAVA-PDF library”, by Initial Developer, Bruno Lowagie, and Co-Developer, Paulo Soares.
 
 
 #1 Fix for transparency issue with setClip method in PdfGraphics2D
