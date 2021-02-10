@@ -1,6 +1,6 @@
 
 TIBCO Software Inc. has made modifications to certain files of the Original Code of this component as further described below.
-The Original Code is “iText, a free JAVA-PDF library”, by Initial Developer, Bruno Lowagie, and Co-Developer, Paulo Soares.
+The Original Code is “iText, a free JAVA-PDF library�?, by Initial Developer, Bruno Lowagie, and Co-Developer, Paulo Soares.
 
 
 #1 Fix for transparency issue with setClip method in PdfGraphics2D
@@ -39,3 +39,8 @@ com/lowagie/text/pdf/OcspClientBouncyCastle.java
 com/lowagie/text/pdf/PdfPKCS7.java
 com/lowagie/text/pdf/PdfPublicKeySecurityHandler.java
 com/lowagie/text/pdf/PdfReader.java
+
+#7 Upgrade Bouncy Castle dependencies to jdk15on-1.62
+Date: July 3, 2019
+Modified files:
+com/lowagie/text/pdf/PdfPublicKeySecurityHandler
