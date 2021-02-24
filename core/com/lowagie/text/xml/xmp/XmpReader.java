@@ -61,6 +61,7 @@ import org.w3c.dom.NodeList;
 import org.xml.sax.SAXException;
 
 import com.lowagie.text.ExceptionConverter;
+import com.lowagie.text.XMLUtil;
 import com.lowagie.text.xml.XmlDomWriter;
 
 /**
@@ -72,18 +73,20 @@ import com.lowagie.text.xml.XmlDomWriter;
 public class XmpReader {
 
     private Document domDocument;
-    
+
     /**
      * Constructs an XMP reader
      * @param	bytes	the XMP content
-     * @throws ExceptionConverter 
-     * @throws IOException 
-     * @throws SAXException 
+     * @throws ExceptionConverter
+     * @throws IOException
+     * @throws SAXException
      */
 	public XmpReader(byte[] bytes) throws SAXException, IOException {
 		try {
 	        DocumentBuilderFactory fact = DocumentBuilderFactory.newInstance();
 	        fact.setNamespaceAware(true);
+	        XMLUtil.configureXMLFactoryForSecureHandling(fact);
+
 			DocumentBuilder db = fact.newDocumentBuilder();
 	        ByteArrayInputStream bais = new ByteArrayInputStream(bytes);
 	        domDocument = db.parse(bais);
@@ -91,7 +94,7 @@ public class XmpReader {
 			throw new ExceptionConverter(e);
 		}
 	}
-	
+
 	/**
 	 * Replaces the content of a tag.
 	 * @param	namespaceURI	the URI of the namespace
@@ -110,8 +113,8 @@ public class XmpReader {
 			setNodeText(domDocument, node, value);
 		}
 		return true;
-	}    
-	
+	}
+
 	/**
 	 * Adds a tag.
 	 * @param	namespaceURI	the URI of the namespace
@@ -142,7 +145,7 @@ public class XmpReader {
 		}
 		return false;
 	}
-	
+
     /**
      * Sets the text of this node. All the child's node are deleted and a new
      * child text node is created.
@@ -160,7 +163,7 @@ public class XmpReader {
         n.appendChild(domDocument.createTextNode(value));
         return true;
     }
-	
+
     /**
      * Writes the document to a byte array.
      */
