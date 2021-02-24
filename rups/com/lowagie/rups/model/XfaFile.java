@@ -7,12 +7,12 @@
  * modify it under the terms of the GNU Lesser General Public
  * License as published by the Free Software Foundation; either
  * version 2.1 of the License, or (at your option) any later version.
- * 
+ *
  * This library is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
  * Lesser General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Lesser General Public
  * License along with this library; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
@@ -38,13 +38,13 @@ public class XfaFile implements OutputStreamResource {
 
 	/** The X4J Document object (XML). */
 	protected Document xfaDocument;
-	
+
 	/**
 	 * Constructs an XFA file from an OutputStreamResource.
 	 * This resource can be an XML file or a node in a RUPS application.
 	 * @param	resource	the XFA resource
-	 * @throws IOException 
-	 * @throws DocumentException 
+	 * @throws IOException
+	 * @throws DocumentException
 	 */
 	public XfaFile(OutputStreamResource resource) throws IOException, DocumentException {
 		// Is there a way to avoid loading everything in memory?
@@ -53,6 +53,8 @@ public class XfaFile implements OutputStreamResource {
 		resource.writeTo(baos);
 		ByteArrayInputStream bais = new ByteArrayInputStream(baos.toByteArray());
 		SAXReader reader = new SAXReader();
+		// Note: No XML parsing security is configured here. May be done in the future
+		// This is a non-core class (part of RUPS)
 		xfaDocument = reader.read(bais);
 	}
 
