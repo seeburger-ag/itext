@@ -54,6 +54,7 @@ import java.io.FileOutputStream;
 import java.io.FileWriter;
 import java.io.IOException;
 
+import javax.xml.XMLConstants;
 import javax.xml.transform.Result;
 import javax.xml.transform.Source;
 import javax.xml.transform.Templates;
@@ -64,14 +65,14 @@ import javax.xml.transform.stream.StreamSource;
 
 /**
  * This class can be used to build the iText website.
- * 
+ *
  * @author Bruno Lowagie
  */
 public class BuildTutorial {
 
 	static String root;
 	static FileWriter build;
-	
+
 	//~ Methods
 	// ----------------------------------------------------------------
 
@@ -155,11 +156,11 @@ public class BuildTutorial {
 			System.out.println("... skipped");
 		}
 	}
-	
+
 	/**
 	 * Converts an <code>infile</code>, using an <code>xslfile</code> to an
 	 * <code>outfile</code>.
-	 * 
+	 *
 	 * @param infile
 	 *            the path to an XML file
 	 * @param xslfile
@@ -171,6 +172,9 @@ public class BuildTutorial {
 		try {
 			// Create transformer factory
 			TransformerFactory factory = TransformerFactory.newInstance();
+			// XML Security is not strictly necessary in a user tool but is still added.
+			factory.setAttribute(XMLConstants.ACCESS_EXTERNAL_DTD, "");
+			factory.setAttribute(XMLConstants.ACCESS_EXTERNAL_STYLESHEET, "");
 
 			// Use the factory to create a template containing the xsl file
 			Templates template = factory.newTemplates(new StreamSource(
@@ -178,7 +182,7 @@ public class BuildTutorial {
 
 			// Use the template to create a transformer
 			Transformer xformer = template.newTransformer();
-			
+
 			// passing 2 parameters
 			String branch = outfile.getParentFile().getCanonicalPath().substring(root.length());
 			branch = branch.replace(File.separatorChar, '/');
@@ -186,7 +190,7 @@ public class BuildTutorial {
 			for (int i = 0; i < branch.length(); i++) {
 				if (branch.charAt(i) == '/') path.append("/..");
 			}
-			
+
 			xformer.setParameter("branch", branch);
 			xformer.setParameter("root", path.toString());
 

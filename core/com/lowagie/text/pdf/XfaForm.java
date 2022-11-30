@@ -65,6 +65,7 @@ import javax.xml.parsers.ParserConfigurationException;
 import org.w3c.dom.Node;
 import org.xml.sax.SAXException;
 
+import com.lowagie.text.XMLUtil;
 import com.lowagie.text.xml.XmlDomWriter;
 
 /**
@@ -83,13 +84,13 @@ public class XfaForm {
     private org.w3c.dom.Document domDocument;
     private boolean changed;
     public static final String XFA_DATA_SCHEMA = "http://www.xfa.org/schema/xfa-data/1.0/";
-    
+
     /**
      * An empty constructor to build on.
      */
     public XfaForm() {
     }
-    
+
     /**
      * Return the XFA Object, could be an array, could be a Stream.
      * Returns null f no XFA Object is present.
@@ -104,7 +105,7 @@ public class XfaForm {
         }
         return PdfReader.getPdfObjectRelease(af.get(PdfName.XFA));
     }
-    
+
     /**
      * A constructor from a <CODE>PdfReader</CODE>. It basically does everything
      * from finding the XFA stream to the XML parsing.
@@ -139,11 +140,13 @@ public class XfaForm {
         bout.close();
         DocumentBuilderFactory fact = DocumentBuilderFactory.newInstance();
         fact.setNamespaceAware(true);
+        XMLUtil.configureXMLFactoryForSecureHandling(fact);
+
         DocumentBuilder db = fact.newDocumentBuilder();
-        domDocument = db.parse(new ByteArrayInputStream(bout.toByteArray()));   
+        domDocument = db.parse(new ByteArrayInputStream(bout.toByteArray()));
         extractNodes();
     }
-    
+
     /**
      * Extracts the nodes from the domDocument.
      * @since	2.1.5
@@ -169,7 +172,7 @@ public class XfaForm {
             n = n.getNextSibling();
         }
     }
-    
+
     /**
      * Sets the XFA key from a byte array. The old XFA is erased.
      * @param form the data
@@ -240,7 +243,7 @@ public class XfaForm {
         fout.close();
         return fout.toByteArray();
     }
-    
+
     /**
      * Returns <CODE>true</CODE> if it is a XFA form.
      * @return <CODE>true</CODE> if it is a XFA form
@@ -256,8 +259,8 @@ public class XfaForm {
     public org.w3c.dom.Document getDomDocument() {
         return domDocument;
     }
-    
-    
+
+
     /**
      * Finds the complete field name contained in the "classic" forms from a partial
      * name.
@@ -279,9 +282,9 @@ public class XfaForm {
             return (String)acroFieldsSom.getAcroShort2LongName().get(name);
         return acroFieldsSom.inverseSearchGlobal(Xml2Som.splitParts(name));
     }
-    
+
     /**
-     * Finds the complete SOM name contained in the datasets section from a 
+     * Finds the complete SOM name contained in the datasets section from a
      * possibly partial name.
      * @param name the complete or partial name
      * @return the complete name or <CODE>null</CODE> if not found
@@ -293,7 +296,7 @@ public class XfaForm {
     }
 
     /**
-     * Finds the <CODE>Node</CODE> contained in the datasets section from a 
+     * Finds the <CODE>Node</CODE> contained in the datasets section from a
      * possibly partial name.
      * @param name the complete or partial name
      * @return the <CODE>Node</CODE> or <CODE>null</CODE> if not found
@@ -316,9 +319,9 @@ public class XfaForm {
         if (n == null)
             return "";
         return getNodeText(n, "");
-        
+
     }
-    
+
     private static String getNodeText(Node n, String name) {
         Node n2 = n.getFirstChild();
         while (n2 != null) {
@@ -332,7 +335,7 @@ public class XfaForm {
         }
         return name;
     }
-    
+
     /**
      * Sets the text of this node. All the child's node are deleted and a new
      * child text node is created.
@@ -351,7 +354,7 @@ public class XfaForm {
         n.appendChild(domDocument.createTextNode(text));
         changed = true;
     }
-    
+
     /**
      * Sets the XFA form flag signaling that this is a valid XFA form.
      * @param xfaPresent the XFA form flag signaling that this is a valid XFA form
@@ -400,7 +403,7 @@ public class XfaForm {
     public void setChanged(boolean changed) {
         this.changed = changed;
     }
-    
+
     /**
      * A structure to store each part of a SOM name and link it to the next part
      * beginning from the lower hierarchy.
@@ -408,7 +411,7 @@ public class XfaForm {
     public static class InverseStore {
         protected ArrayList part = new ArrayList();
         protected ArrayList follow = new ArrayList();
-        
+
         /**
          * Gets the full name by traversing the hierarchy using only the
          * index 0.
@@ -423,10 +426,10 @@ public class XfaForm {
                 store = (InverseStore)obj;
             }
         }
-        
+
         /**
          * Search the current node for a similar name. A similar name starts
-         * with the same name but has a different index. For example, "detail[3]" 
+         * with the same name but has a different index. For example, "detail[3]"
          * is similar to "detail[9]". The main use is to discard names that
          * correspond to out of bounds records.
          * @param name the name to search
@@ -459,10 +462,10 @@ public class XfaForm {
                 throw new EmptyStackException();
             return get(size() - 1);
         }
-        
+
         /**
          * Removes the object at the top of this stack and returns that object as the value of this function.
-         * @return the object at the top of this stack 
+         * @return the object at the top of this stack
          */
         public Object pop() {
             if (size() == 0)
@@ -471,7 +474,7 @@ public class XfaForm {
             remove(size() - 1);
             return ret;
         }
-        
+
         /**
          * Pushes an item onto the top of this stack.
          * @param item the item to be pushed onto this stack
@@ -481,7 +484,7 @@ public class XfaForm {
             add(item);
             return item;
         }
-        
+
         /**
          * Tests if this stack is empty.
          * @return <CODE>true</CODE> if and only if this stack contains no items; <CODE>false</CODE> otherwise
@@ -490,7 +493,7 @@ public class XfaForm {
             return size() == 0;
         }
     }
-    
+
     /**
      * A class for some basic SOM processing.
      */
@@ -570,7 +573,7 @@ public class XfaForm {
                 s.append('.').append((String)stack.get(k));
             return s.substring(1);
         }
-        
+
         /**
          * Gets the name with the <CODE>#subform</CODE> removed.
          * @param s the long name
@@ -593,7 +596,7 @@ public class XfaForm {
             sb.append(s.substring(last));
             return sb.toString();
         }
-        
+
         /**
          * Adds a SOM name to the search node chain.
          * @param unstack the SOM name
@@ -601,7 +604,7 @@ public class XfaForm {
         public void inverseSearchAdd(String unstack) {
             inverseSearchAdd(inverseSearch, stack, unstack);
         }
-        
+
         /**
          * Adds a SOM name to the search node chain.
          * @param inverseSearch the start point
@@ -655,7 +658,7 @@ public class XfaForm {
             }
             return store.getDefaultName();
         }
-    
+
         /**
          * Splits a SOM name in the individual parts.
          * @param name the full SOM name
@@ -742,7 +745,7 @@ public class XfaForm {
             this.inverseSearch = inverseSearch;
         }
     }
-    
+
     /**
      * Processes the datasets section in the XFA form.
      */
@@ -802,7 +805,7 @@ public class XfaForm {
             order.add(shortName);
             return n2;
         }
-        
+
         private static boolean hasChildren(Node n) {
             Node dataNodeN = n.getAttributes().getNamedItemNS(XFA_DATA_SCHEMA, "dataNode");
             if (dataNodeN != null) {
@@ -860,7 +863,7 @@ public class XfaForm {
      */
     public static class AcroFieldsSearch extends Xml2Som {
         private HashMap acroShort2LongName;
-        
+
         /**
          * Creates a new instance from a Collection with the full names.
          * @param items the Collection
@@ -877,7 +880,7 @@ public class XfaForm {
         }
 
         /**
-         * Gets the mapping from short names to long names. A long 
+         * Gets the mapping from short names to long names. A long
          * name may contain the #subform name part.
          * @return the mapping from short names to long names
          */
@@ -886,7 +889,7 @@ public class XfaForm {
         }
 
         /**
-         * Sets the mapping from short names to long names. A long 
+         * Sets the mapping from short names to long names. A long
          * name may contain the #subform name part.
          * @param acroShort2LongName the mapping from short names to long names
          */
@@ -901,7 +904,7 @@ public class XfaForm {
     public static class Xml2SomTemplate extends Xml2Som {
         private boolean dynamicForm;
         private int templateLevel;
-        
+
         /**
          * Creates a new instance from the datasets node.
          * @param n the template node
@@ -1089,7 +1092,7 @@ public class XfaForm {
     public void setAcroFieldsSom(AcroFieldsSearch acroFieldsSom) {
         this.acroFieldsSom = acroFieldsSom;
     }
-    
+
     /**
      * Gets the <CODE>Node</CODE> that corresponds to the datasets part.
      * @return the <CODE>Node</CODE> that corresponds to the datasets part

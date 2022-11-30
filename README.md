@@ -14,6 +14,16 @@ https://jaspersoft.jfrog.io/artifactory/third-party-ce-artifacts/com/lowagie/ite
 Seeburger changes include making it compatible with newer versions of the BouncyCastle cryptography provider:
 
 ```
+24.02.2021, modified:
+core/com/lowagie/text/XMLUtil.java
+core/com/lowagie/text/pdf/XfaForm.java
+core/com/lowagie/text/xml/TagMap.java
+core/com/lowagie/text/xml/XmlParser.java
+core/com/lowagie/text/xml/xmp/XmpReader.java
+core/com/lowagie/tools/BuildTutorial.java
+rups/com/lowagie/rups/model/XfaFile.java
+Purpose: Security against external attacks in XML parsing.
+
 03 Feb 2021, modified:
 core/com/lowagie/text/pdf/PdfPKCS7.java
 core/com/lowagie/text/pdf/PdfPublicKeySecurityHandler.java
