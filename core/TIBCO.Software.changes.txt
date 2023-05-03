@@ -44,6 +44,7 @@ com/lowagie/text/pdf/PdfReader.java
 Date: July 3, 2019
 Modified files:
 com/lowagie/text/pdf/PdfPublicKeySecurityHandler
+
 #8 Upgrade Bouncy Castle dependencies to jdk15on-1.64
 Date: June 30, 2020
 Modified files:
@@ -54,3 +55,8 @@ Date: September 21, 2021
 Modified files:
 com/lowagie/text/pdf/PdfPKCS7.java
 com/lowagie/text/pdf/PdfPublicKeySecurityHandler.java
+
+#10 Upgrade Bouncy Castle dependencies to jdk15on-1.70
+Date: June 06, 2022
+Modified files:
+com/lowagie/text/pdf/PdfPKCS7.java
