@@ -520,8 +520,9 @@ public class PdfPKCS7 {
                 Attribute ts = attble.get(PKCSObjectIdentifiers.id_aa_signatureTimeStampToken);
                 if (ts != null) {
                     ASN1Set attributeValues = ts.getAttrValues();
-                    ASN1Sequence tokenSequence = ASN1Sequence.getInstance(attributeValues.getObjectAt(0));
-                    ContentInfo contentInfo = ContentInfo.getInstance(tokenSequence);
+                    //TIBCO Software #10 : Part 1 - START
+                    ContentInfo contentInfo = ContentInfo.getInstance(attributeValues.getObjectAt(0));
+                    //TIBCO Software #10 : Part 1 - END
                     this.timeStampToken = new TimeStampToken(contentInfo);
                 }
             }
@@ -1137,7 +1138,9 @@ public class PdfPKCS7 {
                 digest = sig.sign();
             ByteArrayOutputStream   bOut = new ByteArrayOutputStream();
 
+            //TIBCO Software #10 : Part 2 - START
             ASN1OutputStream dout = ASN1OutputStream.create(bOut);
+            //TIBCO Software #10 : Part 2 - END
             dout.writeObject(new DEROctetString(digest));
             dout.close();
 
@@ -1331,7 +1334,9 @@ public class PdfPKCS7 {
 
             ByteArrayOutputStream   bOut = new ByteArrayOutputStream();
 
+            //TIBCO Software #10 : Part 3 - START
             ASN1OutputStream dout = ASN1OutputStream.create(bOut);
+            //TIBCO Software #10 : Part 3 - END
             dout.writeObject(new DERSequence(whole));
             dout.close();
 

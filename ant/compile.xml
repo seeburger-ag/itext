@@ -16,6 +16,7 @@
 		    <pathelement path="${itext.lib}/${lib.bcmail}"/>
 	    <pathelement path="${itext.lib}/${lib.bcprov}"/>
 	    <pathelement path="${itext.lib}/${lib.bcpkix}"/>
+	    <pathelement path="${itext.lib}/${lib.bcutil}"/>
 		<!-- jars needed for RUPS -->
 	    <pathelement path="${itext.lib}/${lib.pdf-renderer}"/>
 	    <pathelement path="${itext.lib}/${lib.dom4j}"/>
