@@ -52,4 +52,8 @@ https://jaspersoft.jfrog.io/artifactory/third-party-ce-artifacts/com/lowagie/ite
 core/com/lowagie/text/pdf/PdfPKCS7.java
 Purpose: Synchronizing sources to be the same as version JS10
 https://jaspersoft.jfrog.io/artifactory/third-party-ce-artifacts/com/lowagie/itext/2.1.7.js10/itext-2.1.7.js10-sources.jar
+
+16 Nov 2023
+core/com/lowagie/text/pdf/PdfPKCS7.java
+Purpose: Compatibility with BouncyCastle 1.77
 ```
